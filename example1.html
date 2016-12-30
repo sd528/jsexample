@@ -1,0 +1,49 @@
+<img id=img1 style="height:100;width:100;"></img> 
+
+<button onclick="img1.onclick.AddFunction(f1)">添加f1</button><button onclick="img1.onclick.AddFunction(f2)">添加f2</button><button onclick="img1.onclick.AddFunction(f3)">添加f3</button> 
+
+<button onclick="img1.onclick.RemoveFunction(f1)">移除f1</button><button onclick="img1.onclick.RemoveFunction(f2)">移除f2</button><button onclick="img1.onclick.RemoveFunction(f3)">移除f3</button> 
+<div id=output></div> 
+
+<SCRIPT LANGUAGE="JavaScript"> 
+function FunctionArray() 
+{ 
+    var functions=new Array(); 
+    var FA=function (){         
+        for(var i=0;i<functions.length;i++){ 
+            if(functions[i] instanceof Function)functions[i](); 
+        } 
+    } 
+    FA.AddFunction=function(newFunction){ 
+        if(newFunction instanceof Function) 
+        { 
+            for(var i=0;i<functions.length;i++){ 
+                if(functions[i]==newFunction)return; 
+            } 
+            functions.push(newFunction); 
+        } 
+    } 
+    FA.RemoveFunction=function(theFunction){ 
+        for(var i=0;i<functions.length;i++){ 
+            if(functions[i]==theFunction)functions.splice(i,1); 
+        }         
+    } 
+    return FA; 
+} 
+img1.onclick=FunctionArray(); 
+
+function f1() 
+{ 
+    output.innerHTML+="f1 runs!!
+"; 
+} 
+function f2() 
+{ 
+    output.innerHTML+="f2 runs!!
+"; 
+} 
+function f3() 
+{ 
+    output.innerHTML+="f3 runs!!
+"; 
+} 
