@@ -47,3 +47,22 @@ function f3()
     output.innerHTML+="f3 runs!!
 "; 
 } 
+<script> 
+Function.prototype.concat = function() 
+{ 
+    var funcs = [this].concat(Array.apply([], arguments)); 
+     
+    return function(){ 
+        var ret = []; 
+        for(var i = 0; i < funcs.length; i++) 
+        { 
+            var func = funcs[i] instanceof Function ? funcs[i] : new Function(funcs[i]); 
+            ret.push(func.apply(this, arguments)); 
+        } 
+        return ret; 
+    } 
+} 
+var a = new Function("return 0"); 
+a=a.concat(function(){return 1}, function(){return 2}, function(){return 3}); 
+alert(a()); 
+</script>
